@@ -7,6 +7,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ryan.springboot.entities.enums.OrderStatus;
 
 import jakarta.persistence.CascadeType;
@@ -104,8 +105,12 @@ public class Order implements Serializable {
 		}
 	}
 
-	public double total() {
-		return 0.0;
+	public double getTotal() {
+		double total = 0.0;
+		for (OrderItem i : items) {
+			total += i.getSubTotal();
+		}
+		return total;
 	}
 
 	@Override

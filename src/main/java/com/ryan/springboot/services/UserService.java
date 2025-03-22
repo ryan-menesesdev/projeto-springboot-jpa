@@ -22,4 +22,24 @@ public class UserService {
 		Optional<User> obj = repo.findById(id);
 		return obj.get();
 	}
+	
+	public User insertUser(User user) {
+		return repo.save(user);
+	}
+	
+	public void deleteUser(Long id) {
+		repo.deleteById(id);
+	}
+	
+	private void updateData(User entity, User user) {
+		entity.setName(user.getName());
+		entity.setEmail(user.getEmail());
+		entity.setPhone(user.getPhone());
+	}
+	
+	public User updateUser(Long id, User user) {
+		User entity = repo.getReferenceById(id);
+		updateData(entity, user);
+		return repo.save(entity);
+	}
 }
